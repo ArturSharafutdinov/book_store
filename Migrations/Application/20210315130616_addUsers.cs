@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace book_store.Migrations
+namespace book_store.Migrations.Application
 {
-    public partial class initial : Migration
+    public partial class addUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,32 +49,6 @@ namespace book_store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Category",
-                columns: table => new
-                {
-                    categoryId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Category", x => x.categoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Publisher",
-                columns: table => new
-                {
-                    publisherId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Publisher", x => x.publisherId);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,37 +180,6 @@ namespace book_store.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "books",
-                columns: table => new
-                {
-                    bookId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "text", nullable: true),
-                    pages = table.Column<int>(type: "integer", nullable: false),
-                    price = table.Column<double>(type: "double precision", nullable: false),
-                    image = table.Column<string>(type: "text", nullable: true),
-                    author = table.Column<string>(type: "text", nullable: true),
-                    publisherId = table.Column<int>(type: "integer", nullable: true),
-                    categoryId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_books", x => x.bookId);
-                    table.ForeignKey(
-                        name: "FK_books_Category_categoryId",
-                        column: x => x.categoryId,
-                        principalTable: "Category",
-                        principalColumn: "categoryId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_books_Publisher_publisherId",
-                        column: x => x.publisherId,
-                        principalTable: "Publisher",
-                        principalColumn: "publisherId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderBook",
                 columns: table => new
                 {
@@ -295,16 +238,6 @@ namespace book_store.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_books_categoryId",
-                table: "books",
-                column: "categoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_books_publisherId",
-                table: "books",
-                column: "publisherId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Order_customerId",
                 table: "Order",
                 column: "customerId");
@@ -333,19 +266,10 @@ namespace book_store.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "books");
-
-            migrationBuilder.DropTable(
                 name: "OrderBook");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "Publisher");
 
             migrationBuilder.DropTable(
                 name: "Order");

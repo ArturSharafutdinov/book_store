@@ -14,7 +14,5 @@ namespace book_store.Models
         {
         }
 
-        DbSet<Book> books { get; set; }
-
     }
 }

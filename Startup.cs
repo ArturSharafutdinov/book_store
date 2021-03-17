@@ -34,6 +34,7 @@ namespace book_store
         {
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddEntityFrameworkNpgsql().AddDbContext<BooksContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddHttpClient();

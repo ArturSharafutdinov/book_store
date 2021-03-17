@@ -2,18 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using book_store.Models;
 
-namespace book_store.Migrations
+namespace book_store.Migrations.Application
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210315115500_initial")]
-    partial class initial
+    partial class ApplicationContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,58 +120,6 @@ namespace book_store.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("book_store.Models.Book", b =>
-                {
-                    b.Property<int>("bookId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("author")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("categoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("image")
-                        .HasColumnType("text");
-
-                    b.Property<string>("name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("pages")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("price")
-                        .HasColumnType("double precision");
-
-                    b.Property<int?>("publisherId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("bookId");
-
-                    b.HasIndex("categoryId");
-
-                    b.HasIndex("publisherId");
-
-                    b.ToTable("books");
-                });
-
-            modelBuilder.Entity("book_store.Models.Category", b =>
-                {
-                    b.Property<int>("categoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("name")
-                        .HasColumnType("text");
-
-                    b.HasKey("categoryId");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("book_store.Models.Order", b =>
                 {
                     b.Property<int>("orderId")
@@ -221,21 +167,6 @@ namespace book_store.Migrations
                     b.HasIndex("orderId");
 
                     b.ToTable("OrderBook");
-                });
-
-            modelBuilder.Entity("book_store.Models.Publisher", b =>
-                {
-                    b.Property<int>("publisherId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("name")
-                        .HasColumnType("text");
-
-                    b.HasKey("publisherId");
-
-                    b.ToTable("Publisher");
                 });
 
             modelBuilder.Entity("book_store.Models.Role", b =>
@@ -391,21 +322,6 @@ namespace book_store.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("book_store.Models.Book", b =>
-                {
-                    b.HasOne("book_store.Models.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("categoryId");
-
-                    b.HasOne("book_store.Models.Publisher", "publisher")
-                        .WithMany()
-                        .HasForeignKey("publisherId");
-
-                    b.Navigation("category");
-
-                    b.Navigation("publisher");
                 });
 
             modelBuilder.Entity("book_store.Models.Order", b =>
