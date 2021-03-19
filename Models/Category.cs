@@ -11,5 +11,10 @@ namespace book_store.Models
         public int categoryId { get; set; }
         public string name { get; set; }
 
+        public Category(string name)
+        {
+            this.name = name;
+        }
+
     }
 }

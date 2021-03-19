@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace book_store.Models
 {
-    public class ApplicationContext : IdentityDbContext<User, Role, Guid>
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public ApplicationContext(DbContextOptions options)
               : base(options)

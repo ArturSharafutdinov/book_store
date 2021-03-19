@@ -11,5 +11,9 @@ namespace book_store.Models
         public int publisherId { get; set; }
         public string name { get; set; }
 
+       public Publisher(string name)
+        {
+            this.name = name;
+        }
     }
 }

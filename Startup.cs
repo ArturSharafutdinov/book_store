@@ -39,7 +39,7 @@ namespace book_store
             services.AddControllers();
             services.AddHttpClient();
 
-            services.AddIdentity<User, Role>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = true;
