@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using book_store.Identity;
 using book_store.Models;
+using book_store.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,6 @@ namespace book_store
     {
         public MappingProfile()
         {
-         
 
             CreateMap<UserSignUpResource, User>()
     .ForMember(u => u.UserName, opt => opt.MapFrom(ur => ur.Email));

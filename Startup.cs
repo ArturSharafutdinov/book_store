@@ -4,8 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using book_store.Extensions;
+using book_store.IRepositories;
+using book_store.IServices;
 using book_store.Jwt;
+using book_store.Mappers;
 using book_store.Models;
+using book_store.Repositories;
+using book_store.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -51,6 +56,16 @@ namespace book_store
     .AddDefaultTokenProviders();
 
 
+
+            services.AddTransient<IPublisherRepository, PublisherRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IBookRepository, BookRepository>();
+
+            services.AddTransient<IPublisherService, PublisherService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IBookService, BookService>();
+
+
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -63,6 +78,11 @@ namespace book_store
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             var jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
             services.AddAuth(jwtSettings);
+
+
+
+
+
 
 
         }

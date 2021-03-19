@@ -12,14 +12,14 @@ namespace book_store.Repositories
 
         private BooksContext _booksContext;
 
-        CategoryRepository(BooksContext booksContext)
+       public CategoryRepository(BooksContext booksContext)
         {
             this._booksContext = booksContext;
         }
 
         public Category findByName(string name)
         {
-           return _booksContext.Categories.Find(name);
+           return _booksContext.Categories.FirstOrDefault(cat => cat.name == name);
         }
     }
 }

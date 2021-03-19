@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using book_store.IServices;
 using book_store.Models;
+using book_store.Models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,14 +16,10 @@ namespace book_store.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
-        private readonly BooksContext _booksContext;
-        private readonly IMapper _mapper;
 
-        public BooksController(IBookService bookService, BooksContext booksContext, IMapper mapper)
+        public BooksController(IBookService bookService)
         {
             _bookService = bookService;
-            _booksContext = booksContext;
-            _mapper = mapper;
         }
 
 
@@ -40,27 +37,12 @@ namespace book_store.Controllers
             return _bookService.getBookById(id);
         }
 
-        // PUT: api/Books/5
-        [HttpPut("{id}")]
-        public IActionResult PutBook(int id, Book book)
-        {
-
-            _bookService.updateBook(book);
-            return Ok("changed");
-
-        }
-
         // POST: api/Books
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        public ActionResult<Book> PostBook(BookDto bookDto)
         {
-
-            await _booksContext.AddAsync(book);
-            await _booksContext.SaveChangesAsync();
-
-            int lastId = _booksContext.Books.ToList().Max(x => x.bookId);
-
-            return _booksContext.Books.Find(lastId);
+            _bookService.addBook(bookDto);
+            return Ok("Book added");
         }
 
         [Authorize]

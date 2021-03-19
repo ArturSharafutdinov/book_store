@@ -1,4 +1,5 @@
 ﻿using book_store.Models;
+using book_store.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace book_store.IServices
 {
     public interface IBookService
     {
-        public void addBook(Book book);
+        public void addBook(BookDto bookDto);
 
         public IEnumerable<Book> getAllBooks();
 

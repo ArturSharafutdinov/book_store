@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using book_store.IRepositories;
 using book_store.IServices;
+using book_store.Mappers;
 using book_store.Models;
+using book_store.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +15,31 @@ namespace book_store.Services
     {
 
         private readonly IBookRepository _bookRep;
-        private readonly IMapper _mapper;
-        public BookService(IBookRepository bookRepository, IMapper mapper)
+        private readonly ICategoryService _categoryService;
+        private readonly IPublisherService _publisherService;
+        public BookService(IBookRepository bookRepository, ICategoryService categoryService, IPublisherService publisherService)
         {
             _bookRep = bookRepository;
-            _mapper = mapper;
+            _categoryService = categoryService;
+            _publisherService = publisherService;
         }
 
 
-        public void addBook(Book book)
+        public void addBook(BookDto bookDto)
         {
+            Category category = _categoryService.findByName(bookDto.categoryName);
+            Publisher publisher = _publisherService.findByName(bookDto.publisherName);
+
+            if (category == null)
+            {
+                category = new Category(bookDto.categoryName);
+            }
+            if (publisher == null)
+            {
+                publisher = new Publisher(bookDto.publisherName);
+            }
+
+            Book book = BookMapper.mapToEntity(bookDto, publisher,category);
             _bookRep.Create(book);
             _bookRep.Save();
         }

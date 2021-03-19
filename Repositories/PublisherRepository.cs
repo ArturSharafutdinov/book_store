@@ -11,14 +11,14 @@ namespace book_store.Repositories
     {
         private BooksContext _booksContext;
 
-        PublisherRepository(BooksContext booksContext)
+        public PublisherRepository(BooksContext booksContext)
         {
             this._booksContext = booksContext;
         }
 
         public Publisher findByName(string name)
         {
-          return  _booksContext.Publishers.Find(name);
+            return _booksContext.Publishers.FirstOrDefault(pub => pub.name == name);
         }
     }
 }
