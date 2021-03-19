@@ -25,14 +25,6 @@ namespace book_store.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
-        [Route("/publisher")]
-        public ActionResult addPublisher(Publisher publisher)
-        {
-            _booksContext.Publishers.Add(publisher);
-            _booksContext.SaveChanges();
-            return Ok("added");
-        }
 
         // GET: api/Books
         [HttpGet]
