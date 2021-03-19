@@ -15,6 +15,15 @@ namespace book_store.Models
         public User customer { get; set; }
         public List<OrderBook> order { get; set; }
 
+        public Order() { }
 
+        public Order(DateTime date, string delivery_type, bool bonus, User customer, List<OrderBook> order)
+        {
+            this.date = date;
+            this.delivery_type = delivery_type;
+            this.bonus = bonus;
+            this.customer = customer;
+            this.order = order;
+        }
     }
 }

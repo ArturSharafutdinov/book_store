@@ -11,5 +11,13 @@ namespace book_store.Models
         public int orderId { get; set; }
         public int kolvo { get; set; }
         public int bookId { get; set; }
+
+        public OrderBook() { }
+
+        public OrderBook(int kolvo, int bookId)
+        {
+            this.kolvo = kolvo;
+            this.bookId = bookId;
+        }
     }
 }
