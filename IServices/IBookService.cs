@@ -18,5 +18,7 @@ namespace book_store.IServices
         public void updateBook(Book book);
 
         public void removeBook(int id);
+
+        public bool reduceBook(OrderBookDto[] orderBookDtos);
     }
 }

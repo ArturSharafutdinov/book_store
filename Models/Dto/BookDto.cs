@@ -21,5 +21,7 @@ namespace book_store.Models.Dto
         public string publisherName { get; set; }
 
         public string categoryName { get; set; }
+
+        public int kolvo { get; set; }
     }
 }

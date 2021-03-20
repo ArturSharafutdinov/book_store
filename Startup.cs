@@ -41,6 +41,8 @@ namespace book_store
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkNpgsql().AddDbContext<BooksContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddControllers();
             services.AddHttpClient();
 
@@ -56,6 +58,13 @@ namespace book_store
     .AddDefaultTokenProviders();
 
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddTransient<IPublisherRepository, PublisherRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -67,15 +76,6 @@ namespace book_store
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IOrderService, OrderService>();
 
-
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
 
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             var jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
@@ -98,6 +98,7 @@ namespace book_store
 
             app.UseAuth();
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
 

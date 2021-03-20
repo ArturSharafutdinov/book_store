@@ -21,6 +21,7 @@ namespace book_store.Mappers
                 bookDto.price,
                 bookDto.image,
                 bookDto.author,
+                bookDto.kolvo,
                 publisher,
                 category
                 );

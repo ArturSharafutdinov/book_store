@@ -41,7 +41,7 @@ namespace book_store.Services
                 publisher = new Publisher(bookDto.publisherName);
             }
 
-            Book book = BookMapper.mapToEntity(bookDto, publisher,category);
+            Book book = BookMapper.mapToEntity(bookDto, publisher, category);
             _bookRep.Create(book);
             _bookRep.Save();
         }
@@ -58,7 +58,7 @@ namespace book_store.Services
 
         public void updateBook(Book book)
         {
-       
+
             _bookRep.Update(book);
             _bookRep.Save();
         }
@@ -69,6 +69,16 @@ namespace book_store.Services
             _bookRep.Save();
         }
 
-
+        public bool reduceBook(OrderBookDto[] orderBookDtos)
+        {
+            foreach (OrderBookDto orderBook in orderBookDtos)
+            {
+                Book book = _bookRep.GetById(orderBook.bookId);
+                book.kolvo -= orderBook.kolvo;
+                _bookRep.Update(book);
+                _bookRep.Save();
+            }
+            return true;
+        }
     }
 }

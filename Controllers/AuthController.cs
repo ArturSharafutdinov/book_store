@@ -22,10 +22,10 @@ namespace book_store.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthController(IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager, IOptionsSnapshot<JwtSettings> jwtSettings)
+        public AuthController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IOptionsSnapshot<JwtSettings> jwtSettings)
         {
             _mapper = mapper;
             _userManager = userManager;
@@ -69,28 +69,30 @@ namespace book_store.Controllers
             return BadRequest("Email or password incorrect.");
         }
 
-        [HttpPost("Roles")]
-        public async Task<IActionResult> CreateRole(string roleName)
-        {
-            if (string.IsNullOrWhiteSpace(roleName))
-            {
-                return BadRequest("Role name should be provided.");
-            }
+        /*
+                 [HttpPost("Roles")]
+                public async Task<IActionResult> CreateRole(string roleName)
+                {
+                    if (string.IsNullOrWhiteSpace(roleName))
+                    {
+                        return BadRequest("Role name should be provided.");
+                    }
 
-            var newRole = new Role
-            {
-                Name = roleName
-            };
+                    var newRole = new Role
+                    {
+                        Name = roleName
+                    };
 
-            var roleResult = await _roleManager.CreateAsync(newRole);
+                    var roleResult = await _roleManager.CreateAsync(newRole);
 
-            if (roleResult.Succeeded)
-            {
-                return Ok();
-            }
+                    if (roleResult.Succeeded)
+                    {
+                        return Ok();
+                    }
 
-            return Problem(roleResult.Errors.First().Description, null, 500);
-        }
+                    return Problem(roleResult.Errors.First().Description, null, 500);
+                }
+                     */
 
         [HttpPost("User/{userEmail}/Role")]
         public async Task<IActionResult> AddUserToRole(string userEmail, [FromBody] string roleName)

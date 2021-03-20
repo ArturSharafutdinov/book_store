@@ -20,6 +20,7 @@ namespace book_store
                         price = 150.5,
                         image = "testImage",
                         author = "testAuthor",
+                        kolvo = 10,
                         publisher = new Publisher("firstPublisher"),
                         category = new Category("Художественная литература")
 
@@ -31,6 +32,7 @@ namespace book_store
                        price = 1500.5,
                        image = "testImage2",
                        author = "testAuthor2",
+                       kolvo = 10,
                        publisher = new Publisher("secondPublisher"),
                        category = new Category("Учебная литература")
 
@@ -42,6 +44,7 @@ namespace book_store
                         price = 1240.5,
                         image = "testImage3",
                         author = "testAuthor3",
+                        kolvo = 10,
                         publisher = new Publisher("thirdPublisher"),
                         category = new Category("Справочник")
 

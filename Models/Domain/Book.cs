@@ -19,19 +19,22 @@ namespace book_store.Models
 
         public string author { get; set; }
 
+        public int kolvo { get; set; }
+
         public Publisher publisher { get; set; }
 
         public Category category { get; set; }
 
         public Book() { }
 
-        public Book (string name, int pages, double price, string image, string author, Publisher publisher, Category category)
+        public Book(string name, int pages, double price, string image, string author, int kolvo, Publisher publisher, Category category)
         {
             this.name = name;
             this.pages = pages;
             this.price = price;
             this.image = image;
             this.author = author;
+            this.kolvo = kolvo;
             this.publisher = publisher;
             this.category = category;
         }
