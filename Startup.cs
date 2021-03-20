@@ -60,10 +60,12 @@ namespace book_store
             services.AddTransient<IPublisherRepository, PublisherRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddTransient<IPublisherService, PublisherService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IOrderService, OrderService>();
 
 
             var mappingConfig = new MapperConfiguration(mc =>

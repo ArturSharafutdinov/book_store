@@ -24,12 +24,14 @@ namespace book_store.Services
             _orderRep = orderRep;
         }
 
-        public async void addOrder(OrderDto orderDto)
+        public void addOrder(OrderDto orderDto)
         {
-            User user = await _userManager.FindByIdAsync(orderDto.userId);
-            Order order = OrderMapper.mapToEntityOrder(orderDto, user);
-            _orderRep.Create(order);
-            _orderRep.Save();
+            User user = _userManager.Users.FirstOrDefault(user => user.UserName == orderDto.customerName);
+                if (user != null) {
+                Order order = OrderMapper.mapToEntityOrder(orderDto, user);
+                _orderRep.Create(order);
+                _orderRep.Save();
+            }
         }
 
         public IEnumerable<Order> getAllBooks()

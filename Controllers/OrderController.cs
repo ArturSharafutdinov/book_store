@@ -1,4 +1,5 @@
-﻿using book_store.Models;
+﻿using book_store.IServices;
+using book_store.Models;
 using book_store.Models.Dto;
 using book_store.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,9 @@ namespace book_store.Controllers
     public class OrderController : ControllerBase
     {
 
-        private readonly OrderService _orderService;
+        private readonly IOrderService _orderService;
 
-        public OrderController(OrderService orderService)
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
@@ -25,7 +26,7 @@ namespace book_store.Controllers
         public ActionResult<Order> PostOrder(OrderDto orderDto)
         {
             _orderService.addOrder(orderDto);
-            return Ok("Book added");
+            return Ok("Order added");
         }
 
     }

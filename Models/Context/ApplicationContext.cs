@@ -10,8 +10,8 @@ namespace book_store.Models
     public class ApplicationContext : IdentityDbContext<User>
     {
 
-        public DbSet<Order> orders { get; set; }
-        public DbSet<OrderBook> orderBooks { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderBook> OrderBook { get; set; }
 
         public ApplicationContext(DbContextOptions options)
               : base(options)

@@ -17,6 +17,8 @@ namespace book_store.Services
         private readonly IBookRepository _bookRep;
         private readonly ICategoryService _categoryService;
         private readonly IPublisherService _publisherService;
+
+
         public BookService(IBookRepository bookRepository, ICategoryService categoryService, IPublisherService publisherService)
         {
             _bookRep = bookRepository;

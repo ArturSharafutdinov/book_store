@@ -21,12 +21,12 @@ namespace book_store.Repositories
 
         public void Create(Order item)
         {
-            _appContext.orders.Add(item);
+            _appContext.Order.Add(item);
         }
 
         public void Delete(int id)
         {
-            _appContext.orders.Remove(_appContext.orders.Find(id));
+            _appContext.Order.Remove(_appContext.Order.Find(id));
         }
 
         public bool Exists(int id)
@@ -36,12 +36,12 @@ namespace book_store.Repositories
 
         public IEnumerable<Order> GetAll()
         {
-          return  _appContext.orders.ToList();
+          return  _appContext.Order.ToList();
         }
 
         public Order GetById(int id)
         {
-            return _appContext.orders.Find(id);
+            return _appContext.Order.Find(id);
         }
 
         public void Save()
