@@ -27,5 +27,20 @@ namespace book_store.Mappers
                 );
 
         }
+
+        public static BookDto mapToDto(Book book)
+        {
+            return new BookDto(
+                book.bookId,
+                book.name,
+                book.pages,
+                book.price,
+                book.image,
+                book.author,
+                book.publisher.name,
+                book.category.name,
+                book.kolvo
+                );
+        }
     }
 }

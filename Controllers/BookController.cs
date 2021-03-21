@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using book_store.IServices;
+using book_store.Mappers;
 using book_store.Models;
 using book_store.Models.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -25,9 +26,14 @@ namespace book_store.Controllers
 
         // GET: api/Books
         [HttpGet]
-        public ActionResult<IEnumerable<Book>> GetBooks()
+        public ActionResult<IEnumerable<BookDto>> GetBooks()
         {
-            return _bookService.getAllBooks().OrderBy(q => q.bookId).ToList();
+            List<BookDto> books = new List<BookDto>();
+           foreach(Book book in _bookService.getAllBooks().ToList())
+            {
+                books.Add(BookMapper.mapToDto(book));
+            }
+            return books;
         }
 
         // GET: api/Books/5

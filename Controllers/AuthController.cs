@@ -52,7 +52,7 @@ namespace book_store.Controllers
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignIn(UserLoginResource userLoginResource)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.UserName == userLoginResource.Email);
+            var user = _userManager.Users.SingleOrDefault(u => u.Email == userLoginResource.Email);
             if (user is null)
             {
                 return NotFound("User not found");
@@ -63,7 +63,8 @@ namespace book_store.Controllers
             if (userSigninResult)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                return Ok(GenerateJwt(user, roles));
+                JwtResponse response = new JwtResponse(GenerateJwt(user, roles), user.Email, user.UserName, roles[0].ToString()) ;
+                return Ok(response);
             }
 
             return BadRequest("Email or password incorrect.");

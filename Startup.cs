@@ -37,6 +37,7 @@ namespace book_store
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(); // добавляем сервисы CORS
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkNpgsql().AddDbContext<BooksContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
@@ -101,6 +102,7 @@ namespace book_store
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
