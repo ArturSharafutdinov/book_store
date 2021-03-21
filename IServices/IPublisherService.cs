@@ -9,5 +9,7 @@ namespace book_store.IServices
     public interface IPublisherService
     {
         Publisher findByName(string name);
+
+        Publisher findById(int id);
     }
 }

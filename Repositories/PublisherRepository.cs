@@ -16,6 +16,11 @@ namespace book_store.Repositories
             this._booksContext = booksContext;
         }
 
+        public Publisher findById(int id)
+        {
+            return _booksContext.Publishers.FirstOrDefault(pub => pub.publisherId == id);
+        }
+
         public Publisher findByName(string name)
         {
             return _booksContext.Publishers.FirstOrDefault(pub => pub.name == name);

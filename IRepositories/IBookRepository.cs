@@ -15,5 +15,7 @@ namespace book_store.IRepositories
         void Delete(int id); // удаление объекта по id
         void Save();  // сохранение изменений
         bool Exists(int id); // проверка на null
+        Publisher GetPublisher(int id);
+        Category GetCategory(int id);
     }
 }

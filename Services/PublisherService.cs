@@ -18,9 +18,16 @@ namespace book_store.Services
             this._publisherRepository = publisherRepository;
         }
 
+        public Publisher findById(int id)
+        {
+            return _publisherRepository.findById(id);
+        }
+
         public Publisher findByName(string name)
         {
             return _publisherRepository.findByName(name);
         }
+
+
     }
 }

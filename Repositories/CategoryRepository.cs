@@ -17,6 +17,11 @@ namespace book_store.Repositories
             this._booksContext = booksContext;
         }
 
+        public Category findById(int id)
+        {
+            return _booksContext.Categories.FirstOrDefault(cat => cat.categoryId == id);
+        }
+
         public Category findByName(string name)
         {
            return _booksContext.Categories.FirstOrDefault(cat => cat.name == name);

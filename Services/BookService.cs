@@ -80,5 +80,15 @@ namespace book_store.Services
             }
             return true;
         }
+
+        public Publisher GetPublisher(int id)
+        {
+            return _bookRep.GetPublisher(id);
+        }
+
+        public Category GetCategory(int id)
+        {
+            return _bookRep.GetCategory(id);
+        }
     }
 }

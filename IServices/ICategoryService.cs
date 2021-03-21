@@ -9,5 +9,7 @@ namespace book_store.IServices
     public interface ICategoryService
     {
         Category findByName(string name);
+
+        Category findById(int id);
     }
 }

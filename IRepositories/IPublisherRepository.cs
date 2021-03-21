@@ -9,5 +9,7 @@ namespace book_store.IRepositories
     public interface IPublisherRepository
     {
         Publisher findByName(string name);
+
+        Publisher findById(int id);
     }
 }

@@ -9,5 +9,7 @@ namespace book_store.IRepositories
     public interface ICategoryRepository
     {
         Category findByName(string name);
+
+        Category findById(int id);
     }
 }

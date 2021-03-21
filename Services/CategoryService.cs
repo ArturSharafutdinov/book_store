@@ -22,5 +22,11 @@ namespace book_store.Services
         {
             return this._categoryRepository.findByName(name);
         }
+
+        public Category findById(int id)
+        {
+            return this._categoryRepository.findById(id);
+        }
+
     }
 }

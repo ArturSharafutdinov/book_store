@@ -28,7 +28,7 @@ namespace book_store.Mappers
 
         }
 
-        public static BookDto mapToDto(Book book)
+        public static BookDto mapToDto(Book book, string publisher,string category)
         {
             return new BookDto(
                 book.bookId,
@@ -37,8 +37,8 @@ namespace book_store.Mappers
                 book.price,
                 book.image,
                 book.author,
-                book.publisher.name,
-                book.category.name,
+                publisher,
+                category,
                 book.kolvo
                 );
         }

@@ -20,5 +20,8 @@ namespace book_store.IServices
         public void removeBook(int id);
 
         public bool reduceBook(OrderBookDto[] orderBookDtos);
+
+        public Publisher GetPublisher(int id);
+        public Category GetCategory(int id);
     }
 }

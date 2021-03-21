@@ -17,11 +17,17 @@ namespace book_store.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
+        private readonly IPublisherService publisherService;
+        private readonly ICategoryService categoryService;
 
-        public BooksController(IBookService bookService)
+        public BooksController(IBookService bookService, IPublisherService publisherService, ICategoryService categoryService)
         {
             _bookService = bookService;
+            this.publisherService = publisherService;
+            this.categoryService = categoryService;
         }
+
+
 
 
         // GET: api/Books
@@ -31,7 +37,10 @@ namespace book_store.Controllers
             List<BookDto> books = new List<BookDto>();
            foreach(Book book in _bookService.getAllBooks().ToList())
             {
-                books.Add(BookMapper.mapToDto(book));
+                string publisher = _bookService.GetPublisher(book.bookId).name;
+                string category = _bookService.GetCategory(book.bookId).name;
+
+                books.Add(BookMapper.mapToDto(book,publisher,category));
             }
             return books;
         }

@@ -1,5 +1,6 @@
 ﻿using book_store.IRepositories;
 using book_store.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,5 +52,15 @@ namespace book_store.Repositories
         {
             return GetById(id) != null;
         }
+
+        public Publisher GetPublisher(int id)
+        {
+            return db.Books.Include(p => p.publisher).FirstOrDefault(book => book.bookId == id).publisher;
+        }
+
+            public Category GetCategory(int id)
+            {
+                return db.Books.Include(p => p.category).FirstOrDefault(book => book.bookId == id).category;
+            }
+        }
     }
-}
