@@ -13,11 +13,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Cors;
 
 namespace book_store.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -33,13 +35,15 @@ namespace book_store.Controllers
             _jwtSettings = jwtSettings.Value;
 
         }
-
+      
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp(UserSignUpResource userSignUpResource)
         {
             var user = _mapper.Map<UserSignUpResource, User>(userSignUpResource);
 
             var userCreateResult = await _userManager.CreateAsync(user, userSignUpResource.Password);
+
+            await _userManager.AddToRoleAsync(user, "user");
 
             if (userCreateResult.Succeeded)
             {

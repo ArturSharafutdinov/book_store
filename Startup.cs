@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,21 +32,39 @@ namespace book_store
         }
 
         public IConfiguration Configuration { get; }
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(); // добавляем сервисы CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                                      .WithHeaders("accept", "content-type", "origin", "custom-header")
+                                      .WithMethods("PUT", "DELETE", "GET", "OPTIONS", "POST").Build()
+                    );
+            });
+
+            services.AddControllers();
+
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
+            var jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
+            services.AddAuth(jwtSettings);
+
+          
+
+          
+
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkNpgsql().AddDbContext<BooksContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddControllers();
-            services.AddHttpClient();
+        
+          //  services.AddHttpClient();
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -78,11 +97,6 @@ namespace book_store
             services.AddTransient<IOrderService, OrderService>();
 
 
-            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
-            var jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
-            services.AddAuth(jwtSettings);
-
-
 
 
 
@@ -93,16 +107,18 @@ namespace book_store
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuth();
+            app.UseCors("CorsPolicy");
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseAuthentication();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
