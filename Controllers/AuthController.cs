@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Cors;
+using book_store.Models.Dto;
 
 namespace book_store.Controllers
 {
@@ -67,7 +68,7 @@ namespace book_store.Controllers
             if (userSigninResult)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                JwtResponse response = new JwtResponse(GenerateJwt(user, roles), user.Email, user.UserName, roles[0].ToString()) ;
+                JwtResponse response = new JwtResponse(GenerateJwt(user, roles), new UserDto(user.Id,user.Email,user.firstName,user.lastName)) ;
                 return Ok(response);
             }
 

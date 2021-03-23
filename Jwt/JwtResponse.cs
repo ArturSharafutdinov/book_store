@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using book_store.Models.Dto;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,12 @@ namespace book_store.Jwt
     {
         public string token { get; private set; }
         public string type = "Bearer";
-        public string account { get; private set; }
-        public string name { get; private set; }
-        public string role { get; private set; }
+       public UserDto user { get; set; }
 
-        public JwtResponse(string token, string account, string name, string role)
+        public JwtResponse(string token,  UserDto user)
         {
             this.token = token;
-            this.account = account;
-            this.name = name;
-            this.role = role;
+            this.user = user;
         }
-
     }
 }
