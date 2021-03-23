@@ -2,6 +2,7 @@
 using book_store.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace book_store.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Order> GetAll()
+        public User GetAllOrders(string userId)
         {
-          return  _appContext.Order.ToList();
+            return _appContext.Users.Where(u=>u.Id==userId).Include(u=>u.orders).ThenInclude(u=>u.order).FirstOrDefault();
         }
 
         public Order GetById(int id)

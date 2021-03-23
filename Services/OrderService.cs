@@ -45,6 +45,17 @@ namespace book_store.Services
             throw new NotImplementedException();
         }
 
+        public IEnumerable<OrderDto> getOrdersByUserId(string userId)
+        {
+            List<OrderDto> orders = new List<OrderDto>();
+            User user = _orderRep.GetAllOrders(userId);
+            foreach (Order order in user.orders)
+            {
+                orders.Add(OrderMapper.mapToDto(order));
+            }
+            return orders;
+        }
+
         public void removeOrder(int id)
         {
             throw new NotImplementedException();

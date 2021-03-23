@@ -32,7 +32,7 @@ namespace book_store
         }
 
         public IConfiguration Configuration { get; }
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; 
+ 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -42,7 +42,8 @@ namespace book_store
             {
                 options.AddPolicy(name: "CorsPolicy",
                     builder => builder.WithOrigins("http://localhost:4200")
-                                      .WithHeaders("accept", "content-type", "origin", "custom-header")
+                   // .AllowCredentials()
+                                      .AllowAnyHeader()
                                       .WithMethods("PUT", "DELETE", "GET", "OPTIONS", "POST").Build()
                     );
             });
@@ -64,7 +65,7 @@ namespace book_store
 
 
         
-          //  services.AddHttpClient();
+            services.AddHttpClient();
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -116,9 +117,7 @@ namespace book_store
 
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication();
-
-            app.UseAuthorization();
+            app.UseAuth();
 
             app.UseEndpoints(endpoints =>
             {

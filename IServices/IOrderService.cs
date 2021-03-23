@@ -18,5 +18,7 @@ namespace book_store.IServices
         public void updateOrder(Order order);
 
         public void removeOrder(int id);
+
+        public IEnumerable<OrderDto> getOrdersByUserId(string userId);
     }
 }

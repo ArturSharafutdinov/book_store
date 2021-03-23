@@ -25,6 +25,10 @@ namespace book_store.Models.Dto
 
         public int kolvo { get; set; }
 
+        public BookDto()
+        {
+        }
+
         public BookDto(int bookId, string name, int pages, double price, string image, string author, string publisherName, string categoryName, int kolvo)
         {
             this.bookId = bookId;

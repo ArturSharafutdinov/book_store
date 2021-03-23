@@ -31,5 +31,21 @@ namespace book_store.Mappers
                 );
         }
 
+        public static OrderBookDto mapToDtoOrderBook(OrderBook orderBook)
+        {
+            return new OrderBookDto(orderBook.kolvo, orderBook.bookId);
+        }
+
+        public static OrderDto mapToDto(Order order)
+        {
+
+            List<OrderBookDto> orders = new List<OrderBookDto>();
+            foreach (OrderBook order1 in order.order)
+            {
+                orders.Add(OrderMapper.mapToDtoOrderBook(order1));
+            }
+            return new OrderDto(order.orderId,order.delivery_type, order.bonus, order.customer.Email, order.customer.Id, orders.ToArray());
+        }
+
     }
 }

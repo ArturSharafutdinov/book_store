@@ -25,14 +25,32 @@ namespace book_store.Controllers
             _bookService = bookService;
         }
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult<Order> PostOrder(OrderDto orderDto)
-        {
-            _orderService.addOrder(orderDto);
-            _bookService.reduceBook(orderDto.orders);
 
-            return Ok("Order added");
+    
+        [HttpPost]
+        public ActionResult PostOrder(OrderDto orderDto)
+            {
+            _orderService.addOrder(orderDto);
+        //    _bookService.reduceBook(orderDto.orders);
+
+            return Ok();
+        }
+
+        [HttpGet("byUserId")]
+        public IEnumerable<OrderDto> GetOrdersByUserId(string userId)
+        {
+            List<OrderDto> orders = _orderService.getOrdersByUserId(userId).ToList();
+
+            foreach(OrderDto orderDto in orders)
+            {
+                for(int i = 0; i < orderDto.orders.Length; i++)
+                {
+                    orderDto.orders[i].bookName = _bookService.getBookById(orderDto.orders[i].bookId).name;
+                    orderDto.orders[i].bookImage = _bookService.getBookById(orderDto.orders[i].bookId).image;
+                }
+            }
+
+            return orders;
         }
 
     }

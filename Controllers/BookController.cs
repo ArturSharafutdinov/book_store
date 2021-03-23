@@ -60,7 +60,6 @@ namespace book_store.Controllers
             return Ok("Book added");
         }
 
-        [Authorize]
         // DELETE: api/Books/5
         [HttpDelete("{id}")]
         public ActionResult DeleteBook(int id)
